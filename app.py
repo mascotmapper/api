@@ -28,7 +28,7 @@ def get_mascot(guid):
     """
     for mascot in MASCOTS:
         if guid == mascot['guid']:
-            return jsonify({'mascots', mascot})
+            return jsonify(mascot)
     abort(404)
     return None
 
@@ -37,9 +37,9 @@ def not_found(error):
     """
     Function: not_found
     Input: The error
-    Returns: HTTP 404 with the error
+    Returns: HTTP 404 with r
     """
-    return make_response(jsonify({'error': 'not found'}), 404)
+    return make_response(jsonify({'error': str(error)}), 404)
 
 if __name__ == '__main__':
     APP.run(debug=True)
