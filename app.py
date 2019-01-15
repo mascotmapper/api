@@ -17,7 +17,7 @@ def get_mascots():
     Input: none
     Returns: A list of mascot objects
     """
-    return jsonify({'mascots', MASCOTS})
+    return jsonify(MASCOTS)
 
 @APP.route('/<guid>', methods=['GET'])
 def get_mascot(guid):
