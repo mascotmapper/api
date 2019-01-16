@@ -10,13 +10,13 @@ bolt --run-as root \
     file upload ./webserver.conf /etc/nginx/sites-available/default
 
 # as ubuntu, install app and libs
-scp -i ~/.ssh/cicd-service-account.pem \
+scp -i ~/.ssh/appserver.pem \
     wsgi.py app.py data.json requirements.txt ubuntu@appserver:~
 
 bolt \
     --inventoryfile ./inventory.yml \
     --nodes servers \
-    command run "python3.6 -m venv api/env && source api/env/bin/activate && pip install --upgrade --quiet --requirement requirements.txt"
+    command run "python3.6 -m venv env && source env/bin/activate && pip install --upgrade --quiet --requirement requirements.txt"
 
 # as root, restart supervisor, nginx
 bolt --run-as root \
