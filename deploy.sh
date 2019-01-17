@@ -2,12 +2,12 @@
 bolt --run-as root \
     --inventoryfile ./inventory.yml \
     --nodes servers \
-    file upload ./appserver.conf /etc/supervisor/conf.d/appserver.conf
+    file upload ./conf/appserver.conf /etc/supervisor/conf.d/appserver.conf
 
 bolt --run-as root \
     --inventoryfile ./inventory.yml \
     --nodes servers \
-    file upload ./webserver.conf /etc/nginx/sites-available/default
+    file upload ./conf/webserver.conf /etc/nginx/sites-available/default
 
 # as ubuntu, install app and libs
 scp -i ~/.ssh/appserver.pem \
