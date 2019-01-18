@@ -2,4 +2,5 @@ Flask
 gunicorn
 pylint
 pytest
+pytest-flask
 wheel
