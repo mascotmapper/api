@@ -1,13 +1,19 @@
-import pytest
-from flask import url_for
+from app import APP
+import unittest
 
-class TestApp:
+# python -m unittest test_app
 
-    def test_200(self, client):
-        res = client.get()
-        assert res.status_code == 200
+class Tests(unittest.TestCase):
+    def setUp(self):
+        self.app = APP.test_client()
 
-    def test_404(self, client):
-        res = client.get('/null')
-        assert res.status_code == 404
-        assert res.json == {"error":"404 Not Found: The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again."}
+    def test_200(self):
+        rv = self.app.get('/')
+        assert rv.status == '200 OK'
+
+    def test_404(self):
+        rv = self.app.get('/notfound')
+        assert rv.status == '404 NOT FOUND'
+
+if __name__ == "__main__":
+    unittest.main()
