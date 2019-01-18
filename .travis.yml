@@ -7,4 +7,4 @@ install:
 # command to run tests
 script:
   - gem install bolt
-  - pytest --verbose
+  - python -m unittest test1
