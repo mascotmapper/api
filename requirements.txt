@@ -1,6 +1,5 @@
 Flask
+flake8
 gunicorn
 pylint
-pytest
-pytest-flask
 wheel
