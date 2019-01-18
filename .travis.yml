@@ -7,5 +7,5 @@ install:
 # run tests
 script:
   - flake8 --ignore E501 E231
-  - pylint --disable=C0301 *.py tests/*.py
+  - pylint --disable=C0301 --disable=C0326 *.py tests/*.py
   - python -m unittest discover -v
