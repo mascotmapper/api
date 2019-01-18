@@ -10,8 +10,12 @@ bolt --run-as root \
     file upload ./conf/webserver.conf /etc/nginx/sites-available/default
 
 # as ubuntu, install app and libs
-scp -i ~/.ssh/appserver.pem \
-    wsgi.py app.py data.json requirements.txt ubuntu@appserver:~
+rsync -avz -e "ssh -i ~/.ssh/appserver.pem" \
+    --exclude .*~ \
+    --exclude .git \
+    --exclude .pytest_cache \
+    --exclude __pycache__ \
+    . ubuntu@ec2-54-244-166-211.us-west-2.compute.amazonaws.com:~
 
 bolt \
     --inventoryfile ./inventory.yml \
