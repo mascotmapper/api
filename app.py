@@ -10,6 +10,7 @@ APP = Flask(__name__)
 # Load the data
 MASCOTS = json.load(open('data.json', 'r'))
 
+
 @APP.route('/', methods=['GET'])
 def get_mascots():
     """
@@ -18,6 +19,7 @@ def get_mascots():
     Returns: A list of mascot objects
     """
     return jsonify(MASCOTS)
+
 
 @APP.route('/<guid>', methods=['GET'])
 def get_mascot(guid):
@@ -32,6 +34,7 @@ def get_mascot(guid):
     abort(404)
     return None
 
+
 @APP.errorhandler(404)
 def not_found(error):
     """
@@ -40,6 +43,7 @@ def not_found(error):
     Returns: HTTP 404 with r
     """
     return make_response(jsonify({'error': str(error)}), 404)
+
 
 if __name__ == '__main__':
     APP.run(debug=True)
