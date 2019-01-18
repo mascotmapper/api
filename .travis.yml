@@ -6,6 +6,6 @@ install:
   - pip install -r requirements.txt
 # run tests
 script:
-  - flake8
-  - pylint *.py tests/*.py
+  - flake8 --ignore E501 E231
+  - pylint --disable=C0301 *.py tests/*.py
   - python -m unittest discover -v
