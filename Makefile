@@ -25,10 +25,14 @@ run: build
 interactive: build
 	docker run --rm -it -p 5000:5000 --name $(APP) $(APP)
 
+register: build
+	docker tag mascot_mapper_api:latest 264318998405.dkr.ecr.us-west-2.amazonaws.com/mastcot_mapper/api:latest
+	docker push 264318998405.dkr.ecr.us-west-2.amazonaws.com/mastcot_mapper/api:latest
+
+
 clean:
 	docker container stop $(APP) || true
 	rm -rvf ./__pycache__ ./tests/__pycache__
 	rm -vf .*~ *.pyc
 
-
-.PHONY: lint test build run clean
+.PHONY: lint test build run clean register
