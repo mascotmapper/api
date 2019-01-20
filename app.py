@@ -46,4 +46,4 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    APP.run(debug=True)
+    APP.run("0.0.0.0")
