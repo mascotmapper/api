@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+      - flake8 --ignore=E501,E231
+      - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
+      - python -m unittest --verbose --failfast
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
