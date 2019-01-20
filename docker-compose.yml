@@ -1,0 +1,8 @@
+---
+version: '3.7'
+services:
+    api:
+        container_name: mascotmapper
+        build: .
+        ports:
+            - 5000:5000
