@@ -1,9 +1,0 @@
-groups:
-  - name: servers
-    nodes:
-    - appserver
-    config:
-      ssh:
-        user: ubuntu
-        private-key: ~/.ssh/appserver.pem
-        host-key-check: false
