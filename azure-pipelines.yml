@@ -13,7 +13,7 @@ variables:
   imageName: 'mascot_mapper_api:$(build.buildId)'
 
 steps:
-- script: pip install requirements.txt
+- script: pip install -r requirements.txt
   displayName: 'Install Libs'
 - script: flake8 --ignore=E501,E231
   displayName: 'Lint: flake8'
