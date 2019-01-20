@@ -13,6 +13,9 @@ variables:
   imageName: 'mascot_mapper_api:$(build.buildId)'
 
 steps:
+- script: pip install requirements.txt
+  displayName: 'Install Libs'
+  displayName: 'Lint: flake8'
 - script: flake8 --ignore=E501,E231
   displayName: 'Lint: flake8'
 - script: pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
