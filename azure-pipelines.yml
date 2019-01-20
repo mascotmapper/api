@@ -11,21 +11,22 @@ pool:
 
     variables:
         imageName: 'mascot_mapper_api:$(build.buildId)'
-
-        steps:
-            - task: UsePythonVersion@0
-              inputs:
-                  versionSpec: '3.6'
-                  architecture: 'x64'
-            - script: python -m pip install --upgrade pip setuptools wheel
-              displayName: 'Install tools'
-            - script: pip install -r requirements.txt
-              displayName: 'Install Libs'
-            - script: flake8 --ignore=E501,E231
-              displayName: 'Lint: flake8'
-            - script: pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
-              displayName: 'Lint: pylint'
-            - script: python -m unittest --verbose --failfast
-              displayName: 'Tests'
-            - script: docker build -f Dockerfile -t $(imageName) .
-              displayName: 'docker build'
+        pool:
+            vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
+            steps:
+                - task: UsePythonVersion@0
+                  inputs:
+                      versionSpec: '3.6'
+                      architecture: 'x64'
+                - script: python -m pip install --upgrade pip setuptools wheel
+                  displayName: 'Install tools'
+                - script: pip install -r requirements.txt
+                  displayName: 'Install requirements'
+                - script: flake8 --ignore=E501,E231
+                  displayName: 'Lint: flake8'
+                - script: pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
+                  displayName: 'Lint: pylint'
+                - script: python -m unittest --verbose --failfast
+                  displayName: 'Tests'
+                - script: docker build -f Dockerfile -t $(imageName) .
+                  displayName: 'docker build'
