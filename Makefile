@@ -1,3 +1,5 @@
+APP = mascotmapper
+
 help:
 	@echo "Targets are lint, test, build, and run"
 	@echo "    lint  - flake8 and pylint"
@@ -13,12 +15,16 @@ test: lint
 	python -m unittest --verbose --failfast
 
 build: test
-	docker build -t mascotmapper .
+	docker build -t $(APP) .
 
 run: build
-	docker run --rm -it -p 5000:5000 mascotmapper
+	docker run --rm -d -p 5000:5000 --name $(APP) $(APP)
+
+interactive: build
+	docker run --rm -it -p 5000:5000 --name $(APP) $(APP)
 
 clean:
+	docker container stop $(APP)
 	rm -rvf ./__pycache__ ./tests/__pycache__
 	rm -vf .*~ *.pyc
 
