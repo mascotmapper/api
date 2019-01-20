@@ -18,4 +18,9 @@ build: test
 run: build
 	docker run --rm -it -p 5000:5000 mascotmapper
 
-.PHONY: lint test build run
+clean:
+	rm -rvf ./__pycache__ ./tests/__pycache__
+	rm -vf .*~ *.pyc
+
+
+.PHONY: lint test build run clean
