@@ -32,11 +32,4 @@ jobs:
       flake8 --ignore=E501,E231
       pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
       python -m unittest --verbose --failfast
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml
-    displayName: 'Lint'
-
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: '**/test-results.xml'
-      testRunTitle: 'Python $(python.version)'
-    condition: succeededOrFailed()
+    displayName: 'Test'
