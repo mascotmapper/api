@@ -1,4 +1,4 @@
-APP = mascotmapper
+APP = mascot_mapper
 
 help:
 	@echo "Targets are lint, test, build, and run"
@@ -26,7 +26,7 @@ interactive: build
 	docker run --rm -it -p 5000:5000 --name $(APP) $(APP)
 
 register: build
-	docker tag mascot_mapper_api:latest 264318998405.dkr.ecr.us-west-2.amazonaws.com/mastcot_mapper/api:latest
+	docker tag $(APP)_api:latest 264318998405.dkr.ecr.us-west-2.amazonaws.com/$(APP)/api:latest
 	docker push 264318998405.dkr.ecr.us-west-2.amazonaws.com/mastcot_mapper/api:latest
 
 
