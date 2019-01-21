@@ -15,3 +15,6 @@ pipelines:
           - flake8 --ignore=E501,E231
           - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
           - python -m unittest --verbose --failfast
+          - docker build -t mascot_mapper .
+options:
+  docker: true
