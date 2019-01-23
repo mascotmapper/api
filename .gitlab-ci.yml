@@ -1,16 +1,19 @@
-image: docker:latest
-
-services:
-  - docker:dind
-
 stages:
-  - lint
-  - test
-  - build
+    - lint
+    - test
 
-lint:
-  stage: lint
-  script:
-    - pip install -r requirements.txt
-    - flake8 --ignore=E501,E231
-    - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
+lint job:
+    stage: lint
+    image: python:3.6
+    script:
+        - pip install flake8 pylint
+        - flake8 --ignore=E501,E231
+        - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
+
+test job:
+    stage: test
+    image: python3.6
+    script:
+        - pip install flask pytest
+        - python -m pytest --junitxml=junit/test-results.xml --verbose
+        - python -m unittest discover --verbose
