@@ -1,10 +1,14 @@
+image: docker
+services:
+    - python:3.7
+    - docker:dind
+
 stages:
     - test
     - build
 
 testing:
     stage: test
-    image: python:3.7
     script:
         - pip install -r requirements.txt
         - flake8 --ignore=E501,E231
@@ -17,9 +21,6 @@ testing:
 
 building:
     stage: build
-    image: docker
-    services:
-        - docker:dind
     script:
         - docker info
         - docker build -t mascot_mapper .
