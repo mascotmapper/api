@@ -6,7 +6,7 @@ lint job:
     stage: lint
     image: python:3.6
     script:
-        - pip install flake8 pylint
+        - pip install flask flake8 pylint
         - flake8 --ignore=E501,E231
         - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
 
