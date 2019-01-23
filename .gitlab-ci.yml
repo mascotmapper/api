@@ -11,3 +11,6 @@ lint job:
         - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
         - python -m unittest discover --verbose
         - python -m pytest --junitxml=junit/test-results.xml --verbose
+    artifacts:
+        paths:
+            - junit
