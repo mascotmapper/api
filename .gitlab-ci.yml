@@ -4,7 +4,7 @@ stages:
 
 lint job:
     stage: lint
-    image: python:3.6
+    image: python:3.7
     script:
         - pip install flask flake8 pylint
         - flake8 --ignore=E501,E231
