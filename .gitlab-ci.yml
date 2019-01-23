@@ -7,6 +7,6 @@ test:
         - python -m unittest --verbose --failfast
 
 build:
-    image: docker
+    image: docker:dind
     script:
         - docker build -t mascot_mapper .
