@@ -1,8 +1,9 @@
 stages:
-    - lint
+    - test
+    - build
 
 lint job:
-    stage: lint
+    stage: test
     image: python:3.7
     script:
         - pip install -r requirements.txt
@@ -13,3 +14,11 @@ lint job:
     artifacts:
         paths:
             - junit
+
+build job:
+    stage: build
+    image: docker
+    services:
+        - docker:dind
+    script:
+        - docker info
