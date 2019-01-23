@@ -2,7 +2,7 @@ stages:
     - test
     - build
 
-lint job:
+testing:
     stage: test
     image: python:3.7
     script:
@@ -15,10 +15,11 @@ lint job:
         paths:
             - junit
 
-build job:
+building:
     stage: build
     image: docker
     services:
         - docker:dind
     script:
         - docker info
+        - docker build -t mascot_mapper .
