@@ -1,6 +1,7 @@
 test:
   image: python:3.6
   script:
+  - pip install -r requirements.txt
   - flake8 --ignore=E501,E231
   - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
   - python -m unittest --verbose --failfast
