@@ -6,6 +6,9 @@ install:
   - pip install -r requirements.txt
 # run tests
 script:
+  - echo "Smoke Test"
   - flake8 --ignore=E501,E231
   - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
-  - python -m unittest --verbose --failfast
+  - python -m pytest --junitxml=junit/test-results.xml --verbose
+  - echo "Build"
+  - docker build api:latest .
