@@ -33,4 +33,4 @@ jobs:
           script:
               - docker build --tag api:latest .
               - docker run --detach --publish 5000:5000 api:latest
-              - curl http://127.0.0.1:5000
+              - curl "http://127.0.0.1:5000"
