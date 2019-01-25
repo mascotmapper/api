@@ -10,6 +10,6 @@ script:
   - echo "Smoke Test"
   - flake8 --ignore=E501,E231
   - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
-  - python -m pytest --junitxml=junit/test-results.xml --verbose
+  - pytest --junitxml=junit/test-results.xml --verbose
   - echo "Build"
-  - docker build api:latest .
+  - docker build -t api:latest .
