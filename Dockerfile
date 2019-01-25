@@ -1,5 +1,5 @@
 # use a python image
-FROM python:3.7
+FROM python:3.6
 
 # set the working directory in the container to /app
 WORKDIR /app
@@ -8,7 +8,8 @@ WORKDIR /app
 COPY app.py data.json /app/
 
 # pip install flask
-RUN pip install flask
+RUN pip install --upgrade pip && \
+    pip install flask
 
 # expose the default flask port
 EXPOSE 5000

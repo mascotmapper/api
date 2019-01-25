@@ -15,14 +15,21 @@ stages:
 jobs:
     include:
         - stage: check
-          name: "Lint"
+          name: "Flake8 and Pylint"
           script:
+              - echo "--- Starting linters ---"
               - flake8 --ignore=E501,E231
               - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
+              - echo "--- Linting complete ---"
           name: "Unit Test"
           script:
               - python -m unittest --verbose --failfast
         - stage: build
-          name: "docker"
+          name: "Docker Build"
           script:
               - docker build -t api:latest .
+        - stage: test
+          name: "App Test"
+          script:
+              - docker run -d -p 5000:5000 deleteme:latest
+              - curl localhost:5000
