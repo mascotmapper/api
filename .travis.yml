@@ -27,9 +27,9 @@ jobs:
         - stage: build
           name: "Docker Build"
           script:
-              - docker build -t api:latest .
+              - docker build --tag api:latest .
         - stage: test
           name: "App Test"
           script:
-              - docker run -d -p 5000:5000 api:latest
+              - docker run --detach --publish 5000:5000 api:latest
               - curl localhost:5000
