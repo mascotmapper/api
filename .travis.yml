@@ -1,15 +1,28 @@
 language: python
 python:
-  - "3.6"
-# install dependencies
+    - "3.6"
+
 install:
-  - python -m pip install --upgrade pip
-  - pip install -r requirements.txt
-# run tests
-script:
-  - echo "Smoke Test"
-  - flake8 --ignore=E501,E231
-  - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
-  - pytest --junitxml=junit/test-results.xml --verbose
-  - echo "Build"
-  - docker build -t api:latest .
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt
+
+stages:
+    - check
+    - build
+    - test
+    - deploy
+
+jobs:
+    include:
+        - stage: check
+          name: "Lint"
+          script:
+              - flake8 --ignore=E501,E231
+              - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
+          name: "Unit Test"
+          script:
+              - python -m unittest --verbose --failfast
+        - stage: build
+          name: "docker"
+          script:
+              - docker build -t api:latest .
