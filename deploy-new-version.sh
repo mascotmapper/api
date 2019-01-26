@@ -1,5 +1,5 @@
 #!/bin/bash
-environment=${1}
+environment=${1:-staging}
 application=target-app
 tag=$(date +%F)-$(git rev-parse HEAD)
 
@@ -11,7 +11,7 @@ status=$(get_status)
 
 if [ $status != '"Ok"' ];
 then
-    echo "Unexpected status: ${status}"
+    echo "Unexpected status before deployment: ${status}"
     exit 1
 fi
 
@@ -20,16 +20,22 @@ aws elasticbeanstalk update-environment \
     --environment-name ${environment} \
     --version-label ${tag}
 
-while [ $status == '"Ok"' ];
+iteration=0
+
+while [ $status == '"Ok"' ] || [ $iteration -eq 50 ];
 do
+    iteration=$(( $interation + 1))
     status=$(get_status);
-    echo $status
+    echo "iteration=${iteration}; status=${status}"
     sleep 10;
 done
 
-until [ $status == '"Ok"' ];
+iteration=0
+
+until [ $status == '"Ok"' ] || [ $iteration -eq 50 ];
 do
+    iteration=$(( $interation + 1))
     status=$(get_status);
-    echo $status
+    echo "iteration=${iteration}; status=${status}"
     sleep 10;
 done
