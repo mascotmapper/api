@@ -40,8 +40,6 @@ jobs:
           command: |
             . venv/bin/activate
             make lint
-            #flake8 --ignore E501 E231
-            #pylint --disable=C0301 --disable=C0326 *.py tests/*.py
 
       # run tests!
       - run:
@@ -49,4 +47,9 @@ jobs:
           command: |
             . venv/bin/activate
             make unittest
-            #python -m unittest discover -v
+
+      # build and upload
+      - run:
+          name: build and upload
+          command: |
+            make build upload
