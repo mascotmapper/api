@@ -48,16 +48,21 @@ jobs:
             . venv/bin/activate
             make unittest
 
-      # build and upload
+      # build upload and deploy
       - run:
-          name: build and upload
+          name: build upload and deploy
           command: |
             . venv/bin/activate
-            make upload
+            make upload deploy ENV=staging
 
       # test
       - run:
           name: test
           command: |
-            . venv/bin/activate
-            make test
+            make test ENV=staging
+
+      # deploy
+      - run:
+          name: deploy
+          command: |
+            make deploy ENV=production
