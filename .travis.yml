@@ -17,19 +17,7 @@ jobs:
         - stage: check
           - name: "Flake8 and Pylint"
             script:
-              - echo "--- Starting linters ---"
-              - flake8 --ignore=E501,E231
-              - pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
-              - echo "--- Linting complete ---"
+              - make lint
           - name: "Unit Test"
             script:
-              - python -m unittest --verbose --failfast
-        - stage: build
-          name: "Docker Build"
-          script:
-              - docker build .
-        - stage: test
-          name: "App Test"
-          script:
-              - docker build --tag api:latest .
-              - docker run --detach --publish 5000:5000 api:latest
+              - make unittest
