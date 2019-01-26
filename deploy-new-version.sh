@@ -1,7 +1,7 @@
 #!/bin/bash
 environment=${1:-staging}
 application=target-app
-tag=$(date +%F)-$(git rev-parse HEAD)
+tag=$(date +%F)-$(git rev-parse --short HEAD)
 
 function get_status() {
     echo $(aws elasticbeanstalk describe-environment-health --environment-name ${environment} --attribute-names Status --query="Status")

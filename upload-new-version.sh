@@ -1,7 +1,7 @@
 #!/bin/sh
 application=target-app
 bucket=cakedisk-api
-tag=$(date +%F)-$(git rev-parse HEAD)
+tag=$(date +%F)-$(git rev-parse --short HEAD)
 bundle=bundle-${tag}.zip
 
 zip -r /tmp/${bundle} .
