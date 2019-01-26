@@ -1,3 +1,4 @@
+#!/bin/sh
 environment=${1}
 application=target-app
 tag=$(date +%F)-$(git rev-parse HEAD)

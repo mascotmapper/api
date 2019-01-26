@@ -1,10 +1,11 @@
+#!/bin/sh
 application=target-app
 bucket=cakedisk-api
 tag=$(date +%F)-$(git rev-parse HEAD)
 bundle=bundle-${tag}.zip
 
-zip -r ${bundle} .
-aws s3 cp ${bundle} s3://${bucket}
+zip -r /tmp/${bundle} .
+aws s3 cp /tmp/${bundle} s3://${bucket}
 aws elasticbeanstalk create-application-version \
     --application-name ${application} \
     --version-label ${tag}  \
