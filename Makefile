@@ -43,7 +43,7 @@ upload: unittest
 	./upload-new-version.sh
 
 test:
-	curl
+	./test-environment.sh $(ENV)
 
 deploy:
 	./deploy-new-version.sh $(ENV)
