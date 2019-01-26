@@ -4,7 +4,7 @@ TAG    = $(shell echo "$$(date +%F)-$$(git rev-parse --short HEAD)")
 ENV    = staging
 
 help:
-	@echo "Run 'make <target>' where target is one of the following..."
+	@echo "Run make <target> where target is one of the following..."
 	@echo
 	@echo "    lint        - run flake8 and pylint"
 	@echo "    unittest    - run unittests"
@@ -13,13 +13,13 @@ help:
 	@echo "    interactive - run container interactively on host port 5000"
 	@echo "    upload      - run ./upload-new-version.sh"
 	@echo "    deploy      - run ./deploy-new-version.sh staging"
-	@echo "    test        - run ./test-environment".sh staging"
+	@echo "    test        - run ./test-environment.sh staging"
 	@echo "    clean       - stop local container, clean up workspace"
 	@echo
-	@echo "For the prodction environment...."
+	@echo "For the production environment...."
 	@echo
 	@echo "    deploy ENV=production - run ./deploy-new-version.sh production"
-	@echo "    test ENV=prodiction   - run ./test-environment".sh production"
+	@echo "    test ENV=prodiction   - run ./test-environment.sh production"
 	@echo
 	@echo "FYI, Current tag is $(TAG)"
 
@@ -33,10 +33,10 @@ unittest: lint
 build: unittest
 	docker build -t $(SCOPE)/$(APP):$(TAG) .
 
-run: build
+run:
 	docker run --rm -d -p 5000:5000 --name $(APP) $(SCOPE)/$(APP):$(TAG)
 
-interactive: build
+interactive:
 	docker run --rm -it -p 5000:5000 --name $(APP) $(SCOPE)/$(APP):$(TAG)
 
 upload: unittest
@@ -45,12 +45,12 @@ upload: unittest
 test:
 	curl
 
-deploy: upload
-	./deploy-new-version.sh $(ENVIRONMENT)
+deploy:
+	./deploy-new-version.sh $(ENV)
 
 clean:
 	docker container stop $(APP) || true
-	rm -rvf ./__pycache__ ./tests/__pycache__
-	rm -vf .*~ *.pyc
+	@rm -rf ./__pycache__ ./tests/__pycache__
+	@rm -f .*~ *.pyc
 
 .PHONY: lint test build run clean register

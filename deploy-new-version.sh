@@ -26,7 +26,6 @@ while [ $status == '"Ready"' ] || [ $count -eq 30 ];
 do
     count=$(( $count + 1))
     status=$(get_status);
-    echo "count=${count}; status=${status}"
     sleep 10;
 done
 
