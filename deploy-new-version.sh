@@ -20,22 +20,22 @@ aws elasticbeanstalk update-environment \
     --environment-name ${environment} \
     --version-label ${tag}
 
-iteration=0
+count=0
 
-while [ $status == '"Ok"' ] || [ $iteration -eq 50 ];
+while [ $status == '"Ok"' ] || [ $count -eq 30 ];
 do
-    iteration=$(( $interation + 1))
+    count=$(( $count + 1))
     status=$(get_status);
-    echo "iteration=${iteration}; status=${status}"
+    echo "count=${count}; status=${status}"
     sleep 10;
 done
 
-iteration=0
+count=0
 
-until [ $status == '"Ok"' ] || [ $iteration -eq 50 ];
+until [ $status == '"Ok"' ] || [ $count -eq 30 ];
 do
-    iteration=$(( $interation + 1))
+    count=$(( $count + 1))
     status=$(get_status);
-    echo "iteration=${iteration}; status=${status}"
+    echo "count=${count}; status=${status}"
     sleep 10;
 done
