@@ -24,7 +24,7 @@ help:
 	@echo "FYI, Current tag is $(TAG)"
 
 lint:
-	flake8 --ignore=E501,E231
+	flake8 --ignore=E501,E231 *.py tests/*.py
 	pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
 
 unittest: lint
