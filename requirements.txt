@@ -1,4 +1,5 @@
 Flask
+awscli
 flake8
 pylint
 pytest
