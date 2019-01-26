@@ -4,12 +4,12 @@ application=target-app
 tag=$(date +%F)-$(git rev-parse HEAD)
 
 function get_status() {
-    echo $(aws elasticbeanstalk describe-environment-health --environment-name ${environment} --attribute-names HealthStatus --query="HealthStatus")
+    echo $(aws elasticbeanstalk describe-environment-health --environment-name ${environment} --attribute-names Status --query="Status")
 }
 
 status=$(get_status)
 
-if [ $status != '"Ok"' ];
+if [ $status != '"Ready"' ];
 then
     echo "Unexpected status before deployment: ${status}"
     exit 1
@@ -22,7 +22,7 @@ aws elasticbeanstalk update-environment \
 
 count=0
 
-while [ $status == '"Ok"' ] || [ $count -eq 30 ];
+while [ $status == '"Ready"' ] || [ $count -eq 30 ];
 do
     count=$(( $count + 1))
     status=$(get_status);
@@ -32,7 +32,7 @@ done
 
 count=0
 
-until [ $status == '"Ok"' ] || [ $count -eq 30 ];
+until [ $status == '"Ready"' ] || [ $count -eq 30 ];
 do
     count=$(( $count + 1))
     status=$(get_status);
