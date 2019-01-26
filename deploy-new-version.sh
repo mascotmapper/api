@@ -38,3 +38,9 @@ do
     echo "count=${count}; status=${status}"
     sleep 10;
 done
+
+if [ $count -eq 30 ];
+then
+    echo "Something went wrong. :/"
+    exit 1
+fi
