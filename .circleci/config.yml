@@ -52,4 +52,5 @@ jobs:
       - run:
           name: build and upload
           command: |
+            . venv/bin/activate
             make build upload
