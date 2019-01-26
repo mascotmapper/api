@@ -5,14 +5,15 @@ FROM python:3.6
 WORKDIR /app
 
 # add the current directory to the container as /app
-COPY app.py data.json /app/
+COPY . /app
 
 # pip install flask
 RUN pip install --upgrade pip && \
-    pip install flask
+    pip install -r /app/requirements.txt
 
 # expose the default flask port
 EXPOSE 5000
 
 # execute the Flask app
-CMD ["python", "app.py"]
+ENTRYPOINT ["python"]
+CMD ["/app/app.py"]
