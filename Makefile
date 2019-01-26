@@ -1,6 +1,9 @@
-APP = mascot_mapper
-
+APP         = target-app
+SCOPE       = user99
+TAG         = $(shell echo "$$(date +%F)-$$(git rev-parse --short HEAD)")
+ENVIRONMENT = staging
 help:
+	@echo $(TAG) $(USER)
 	@echo "Targets are lint, test, build, and run"
 	@echo "    lint        - flake8 and pylint"
 	@echo "    test        - unittests"
@@ -13,22 +16,26 @@ lint:
 	flake8 --ignore=E501,E231
 	pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
 
-test: lint
+unittest: lint
 	python -m unittest --verbose --failfast
 
-build: test
-	docker build -t $(APP) .
+build: unittest
+	docker build -t $(SCOPE)/$(APP):$(TAG) .
 
 run: build
-	docker run --rm -d -p 5000:5000 --name $(APP) $(APP)
+	docker run --rm -d -p 5000:5000 --name $(APP) $(SCOPE)/$(APP):$(TAG)
 
 interactive: build
-	docker run --rm -it -p 5000:5000 --name $(APP) $(APP)
+	docker run --rm -it -p 5000:5000 --name $(APP) $(SCOPE)/$(APP):$(TAG)
 
-register: build
-	docker tag $(APP)_api:latest 264318998405.dkr.ecr.us-west-2.amazonaws.com/$(APP)/api:latest
-	docker push 264318998405.dkr.ecr.us-west-2.amazonaws.com/mastcot_mapper/api:latest
+upload: unittest
+	./upload-new-version.sh
 
+test:
+	curl
+
+deploy: upload
+	./deploy-new-version.sh $(ENVIRONMENT)
 
 clean:
 	docker container stop $(APP) || true
