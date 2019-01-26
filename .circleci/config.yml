@@ -36,14 +36,14 @@ jobs:
 
       # lint
       - run:
-          name: lint code
+          name: lint
           command: |
             . venv/bin/activate
             make lint
 
-      # run tests!
+      # unittest
       - run:
-          name: run tests
+          name: unittest
           command: |
             . venv/bin/activate
             make unittest
@@ -54,3 +54,10 @@ jobs:
           command: |
             . venv/bin/activate
             make upload
+
+      # test
+      - run:
+          name: test
+          command: |
+            . venv/bin/activate
+            make test
