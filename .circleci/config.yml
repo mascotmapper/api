@@ -34,36 +34,35 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
-      # lint
+      # lint and unittest
       - run:
-          name: lint
+          name: check
           command: |
             . venv/bin/activate
-            make lint
+            make lint unittest
 
-      # unittest
+      # build and deploy staging
       - run:
-          name: unittest
-          command: |
-            . venv/bin/activate
-            make unittest
-
-      # build upload and deploy
-      - run:
-          name: build upload and deploy
+          name: build and deploy staging
           command: |
             . venv/bin/activate
             make upload deploy ENV=staging
 
-      # test
+      # test staging
       - run:
-          name: test
+          name: test staging
           command: |
             make test ENV=staging
 
-      # deploy
+      # deploy production
       - run:
-          name: deploy
+          name: deploy production
           command: |
             . venv/bin/activate
             make deploy ENV=production
+
+      # test production
+      - run:
+          name: test production
+          command: |
+            make test ENV=production

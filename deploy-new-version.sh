@@ -41,15 +41,23 @@ done
 
 if [ $count -eq 30 ];
 then
+    echo
+    echo ----
     echo "Something went wrong. :/"
     echo "application-name ${application}"
     echo "environment-name ${environment}"
     echo "version-label    ${tag}"
+    echo ----
+    echo
     exit 1
 else
+    echo
+    echo ----
     echo "Deployment completed successfully! :D"
     echo "application-name ${application}"
     echo "environment-name ${environment}"
     echo "version-label    ${tag}"
+    echo ----
+    echo
     exit 0
 fi
