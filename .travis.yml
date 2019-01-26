@@ -27,10 +27,9 @@ jobs:
         - stage: build
           name: "Docker Build"
           script:
-              - docker build --tag api:latest .
+              - docker build .
         - stage: test
           name: "App Test"
           script:
               - docker build --tag api:latest .
               - docker run --detach --publish 5000:5000 api:latest
-              - ./.travis/curl_app.sh
