@@ -9,7 +9,7 @@ pipeline {
         stage('Requirements') {
             steps {
                 sh('''
-                        python3 -m venv local
+                         /usr/bin/python3 -m venv local
                         source ./local/bin/activate
                         pip install -U -r requirements.txt
                         ''')
