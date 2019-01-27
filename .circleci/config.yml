@@ -41,12 +41,19 @@ jobs:
             . venv/bin/activate
             make lint unittest
 
-      # build and deploy staging
+      # build
       - run:
-          name: build and deploy staging
+          name: build
           command: |
             . venv/bin/activate
-            make upload deploy ENV=staging
+            make upload
+
+      # deploy staging
+      - run:
+          name: deploy staging
+          command: |
+            . venv/bin/activate
+            make deploy ENV=staging
 
       # test staging
       - run:
