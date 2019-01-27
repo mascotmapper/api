@@ -11,7 +11,7 @@ pipeline {
                 sh('''#!/bin/bash
                          /usr/bin/python3 -m venv local
                         source ./local/bin/activate
-                        pip install -U -r requirements.txt
+                        pip install --upgrade --requirement requirements.txt
                         ''')
             }
         }
