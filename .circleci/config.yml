@@ -46,27 +46,27 @@ jobs:
           name: Build
           command: |
             . venv/bin/activate
-            make upload
+            #make upload
 
       # deploy staging
       - run:
           name: Deploy Staging
           command: |
             . venv/bin/activate
-            make deploy ENV=staging
+            #make deploy ENV=staging
 
       # test staging
       - run:
           name: Test Staging
           command: |
-            make test ENV=staging
+              make test ENV=staging
 
       # deploy production
       - run:
           name: Deploy Production
           command: |
             . venv/bin/activate
-            make deploy ENV=production
+            #make deploy ENV=production
 
       # test production
       - run:
