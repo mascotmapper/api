@@ -23,7 +23,7 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: install dependencies
+          name: Requirements
           command: |
             python3 -m venv venv
             . venv/bin/activate
@@ -36,40 +36,40 @@ jobs:
 
       # lint and unittest
       - run:
-          name: check
+          name: Check
           command: |
             . venv/bin/activate
             make lint unittest
 
       # build
       - run:
-          name: build
+          name: Build
           command: |
             . venv/bin/activate
             make upload
 
       # deploy staging
       - run:
-          name: deploy staging
+          name: Deploy Staging
           command: |
             . venv/bin/activate
             make deploy ENV=staging
 
       # test staging
       - run:
-          name: test staging
+          name: Test Staging
           command: |
             make test ENV=staging
 
       # deploy production
       - run:
-          name: deploy production
+          name: Deploy Production
           command: |
             . venv/bin/activate
             make deploy ENV=production
 
       # test production
       - run:
-          name: test production
+          name: Test Production
           command: |
             make test ENV=production
