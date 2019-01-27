@@ -2,14 +2,14 @@ pipeline {
     agent any
     options {
         buildDiscarder(logRotator(daysToKeepStr: '10', numToKeepStr: '10'))
-        timeout(time: 12, unit: 'HOURS')
-        timestamps()
+            timeout(time: 12, unit: 'HOURS')
+            timestamps()
     }
     stages {
         stage('Requirements') {
             steps {
                 sh('''#!/bin/bash
-                         /usr/bin/python3 -m venv local
+                        /usr/bin/python3 -m venv local
                         source ./local/bin/activate
                         pip install --upgrade --requirement requirements.txt
                         ''')
@@ -19,6 +19,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
+                        make lint unittest
                         ''')
             }
         }
@@ -26,6 +27,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
+                        make upload
                         ''')
             }
         }
@@ -33,6 +35,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
+                        make deploy ENV=staging
                         ''')
             }
         }
@@ -40,6 +43,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
+                        make test ENV=staging
                         ''')
             }
         }
@@ -47,6 +51,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
+                        make deploy ENV=production
                         ''')
             }
         }
@@ -54,6 +59,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
+                        make test ENV=production
                         ''')
             }
         }
