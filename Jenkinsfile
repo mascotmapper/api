@@ -59,11 +59,3 @@ pipeline {
         }
     }
 }
-
-Requirements
-Check
-Build
-Deploy Staging
-Test Staging
-Deploy Production
-Test Production
