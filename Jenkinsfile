@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Requirements') {
             steps {
-                sh('''
+                sh('''#!/bin/bash
                          /usr/bin/python3 -m venv local
                         source ./local/bin/activate
                         pip install -U -r requirements.txt
@@ -17,42 +17,42 @@ pipeline {
         }
         stage('Check') {
             steps {
-                sh('''
+                sh('''#!/bin/bash
                         source ./local/bin/activate
                         ''')
             }
         }
         stage('Build') {
             steps {
-                sh('''
+                sh('''#!/bin/bash
                         source ./local/bin/activate
                         ''')
             }
         }
         stage('Deploy Staging') {
             steps {
-                sh('''
+                sh('''#!/bin/bash
                         source ./local/bin/activate
                         ''')
             }
         }
         stage('Test Staging') {
             steps {
-                sh('''
+                sh('''#!/bin/bash
                         source ./local/bin/activate
                         ''')
             }
         }
         stage('Deploy Production') {
             steps {
-                sh('''
+                sh('''#!/bin/bash
                         source ./local/bin/activate
                         ''')
             }
         }
         stage('Test Production') {
             steps {
-                sh('''
+                sh('''#!/bin/bash
                         source ./local/bin/activate
                         ''')
             }
