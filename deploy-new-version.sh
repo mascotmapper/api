@@ -1,6 +1,7 @@
 #!/bin/bash
 environment=${1:-staging}
-application=target-app
+application=${2:-target-app}
+count_max=${3:-30}
 tag=$(date +%F)-$(git rev-parse --short HEAD)
 
 function get_status() {
@@ -22,7 +23,7 @@ aws elasticbeanstalk update-environment \
 
 count=0
 
-while [ $status == '"Ready"' ] || [ $count -eq 30 ];
+while [ $status == '"Ready"' ] || [ $count -eq $count_max ];
 do
     count=$(( $count + 1))
     status=$(get_status);
@@ -31,7 +32,7 @@ done
 
 count=0
 
-until [ $status == '"Ready"' ] || [ $count -eq 30 ];
+until [ $status == '"Ready"' ] || [ $count -eq $count_max ];
 do
     count=$(( $count + 1))
     status=$(get_status);
@@ -39,7 +40,7 @@ do
     sleep 10;
 done
 
-if [ $count -eq 30 ];
+if [ $count -eq $count_max ];
 then
     echo
     echo ----
