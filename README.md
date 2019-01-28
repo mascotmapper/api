@@ -8,3 +8,4 @@
 | Gitlab | [![Gitlab](https://gitlab.com/automate6500/api/badges/master/pipeline.svg)](https://gitlab.com/automate6500/api) |
 
 An API for the Mascot Mapper application.
+openssl rand -base64 32 > trigger.txt
