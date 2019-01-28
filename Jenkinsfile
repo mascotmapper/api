@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
-                        #make upload
+                        echo make upload
                         ''')
             }
         }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
-                        #make deploy ENV=staging
+                        echo make deploy ENV=staging
                         ''')
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 sh('''#!/bin/bash
                         source ./local/bin/activate
-                        #make deploy ENV=production
+                        echo make deploy ENV=production
                         ''')
             }
         }

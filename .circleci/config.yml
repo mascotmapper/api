@@ -25,51 +25,41 @@ jobs:
       - run:
           name: Requirements
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
+            python3 -m venv local
+            source local/bin/activate
             pip install --upgrade --requirement requirements.txt
 
       - save_cache:
           paths:
-            - ./venv
+            - ./local
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
-      # lint and unittest
+      # Check
       - run:
           name: Check
           command: |
-            . venv/bin/activate
+            source local/bin/activate
             make lint unittest
 
       # build
       - run:
           name: Build
           command: |
-            . venv/bin/activate
-            #make upload
+            source local/bin/activate
+            echo make upload
 
       # deploy staging
       - run:
           name: Deploy Staging
           command: |
-            . venv/bin/activate
-            #make deploy ENV=staging
-
-      # test staging
-      - run:
-          name: Test Staging
-          command: |
-              make test ENV=staging
+            source local/bin/activate
+            echo make deploy ENV=staging
+            make test ENV=staging
 
       # deploy production
       - run:
           name: Deploy Production
           command: |
-            . venv/bin/activate
-            #make deploy ENV=production
-
-      # test production
-      - run:
-          name: Test Production
-          command: |
+            source local/bin/activate
+            echo make deploy ENV=production
             make test ENV=production
