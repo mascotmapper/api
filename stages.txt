@@ -1,8 +1,7 @@
----
-Requirements
-Check
-Build
-Deploy Staging
-Test Staging
-Deploy Production
-Test Production
+1. Requirements
+2. Check
+3. Build
+4. Deploy Staging
+5. Test Staging
+6. Deploy Production
+7. Test Production
