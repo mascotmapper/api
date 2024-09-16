@@ -23,6 +23,10 @@ help:
 	@echo
 	@echo "FYI, Current tag is $(TAG)"
 
+requirements:
+	pip install --upgrade pip
+	pip install --requirement requirements.txt
+
 lint:
 	flake8 --ignore=E501,E231 *.py tests/*.py
 	pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
